@@ -5,4 +5,13 @@ export const Wrapper = styled.div`
     background-color: #353535;
 `;
 
-export const Main = styled.main``;
+export const Main = styled.main`
+    margin-top: 20px;
+`;
+
+export const Info = styled.h2`
+    color: #fff;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 300;
+`;
