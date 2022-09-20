@@ -1,30 +1,19 @@
-import { FC } from "react";
-import UserCard from "../UserCard/UserCard";
-import { Grid } from "./UserGrid.Styled";
+import type { FC } from "react";
 
-const dummyData: User[] = [
-    {
-        id: 1,
-        email: "user@test.com",
-        first_name: "Test",
-        last_name: "User",
-        avatar: "https://reqres.in/img/faces/1-image.jpg",
-    },
-    {
-        id: 2,
-        email: "user@test.com",
-        first_name: "Test",
-        last_name: "User",
-        avatar: "https://reqres.in/img/faces/1-image.jpg",
-    },
-];
+import { useCtxState } from "../../../Context/StateContext";
+
+import { Grid } from "./UserGrid.Styled";
+import UserCard from "../UserCard/UserCard";
 
 const UserGrid: FC = () => {
+    const state = useCtxState();
+    const users = state?.users?.users;
+
     return (
         <Grid>
-            {dummyData.map((user) => (
-                <UserCard key={user.id} user={user} />
-            ))}
+            {!!users &&
+                users.length > 0 &&
+                users.map((user) => <UserCard key={user.id} user={user} />)}
         </Grid>
     );
 };

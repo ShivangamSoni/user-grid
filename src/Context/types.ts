@@ -1,8 +1,11 @@
 import type { Dispatch, Reducer } from "react";
+
 import type { UserStateShape } from "./UserState/types";
+import type { SiteStateShape } from "./SiteState/types";
 
 type FullStoreShape = {
     users: UserStateShape;
+    site: SiteStateShape;
 };
 
 export type StoreShape = Partial<FullStoreShape>;

@@ -1,4 +1,6 @@
 import type { FC } from "react";
+import { setError, setLoading } from "../../Context/SiteState/actions";
+
 import { useDispatch } from "../../Context/StateContext";
 import { storeUsers } from "../../Context/UserState/actions";
 
@@ -14,27 +16,38 @@ import {
 const Header: FC = () => {
     const dispatch = useDispatch();
 
-    const getUsers = () => {
-        // TODO: Send API Request & Update State
+    const getUsers = async () => {
+        const showError = () => {
+            console.log("Error");
+            // @ts-expect-error
+            dispatch(setError(true));
+
+            setTimeout(() => {
+                // @ts-expect-error
+                dispatch(setError(false));
+            }, 3000);
+        };
+
         // @ts-expect-error
-        dispatch(
-            storeUsers([
-                {
-                    id: 1,
-                    email: "user@test.com",
-                    first_name: "Test",
-                    last_name: "User",
-                    avatar: "https://reqres.in/img/faces/1-image.jpg",
-                },
-                {
-                    id: 2,
-                    email: "user@test.com",
-                    first_name: "Test",
-                    last_name: "User",
-                    avatar: "https://reqres.in/img/faces/1-image.jpg",
-                },
-            ]),
-        );
+        dispatch(setLoading(true));
+
+        const response = await fetch("https://reqres.in/api/users?page=qw");
+
+        // @ts-expect-error
+        dispatch(setLoading(false));
+
+        if (response.ok) {
+            const data = await response.json();
+
+            if (!!data) {
+                // @ts-expect-error
+                dispatch(storeUsers(data.data));
+            } else {
+                showError();
+            }
+        } else {
+            showError();
+        }
     };
 
     return (

@@ -25,6 +25,6 @@ const StateProvider: FC<Props> = ({ children, reducer }) => {
 
 export default StateProvider;
 
-export const useState = () => useContext(StateContext).state;
+export const useCtxState = () => useContext(StateContext).state;
 
 export const useDispatch = () => useContext(StateContext).dispatch;

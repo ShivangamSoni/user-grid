@@ -1,3 +1,3 @@
 export type UserStateShape = {
-    users?: [];
+    users?: User[];
 };
