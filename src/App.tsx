@@ -1,10 +1,13 @@
-import { FC } from "react";
+import type { FC } from "react";
+
+import { Wrapper } from "./App.Styled";
+import Header from "./Components/Header/Header";
 
 const App: FC = () => {
     return (
-        <div>
-            <h1>App</h1>
-        </div>
+        <Wrapper>
+            <Header />
+        </Wrapper>
     );
 };
 
