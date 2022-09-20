@@ -1,14 +1,19 @@
 import type { FC } from "react";
 
+import { useCtxState } from "./Context/StateContext";
+
 import { Info, Main, Wrapper } from "./App.Styled";
+
 import Header from "./Components/Header/Header";
 import UserGrid from "./Components/User/UserGrid/UserGrid";
-import { useCtxState } from "./Context/StateContext";
+import LoadingSpinner from "./Components/LoadingSpinner/LoadingSpinner";
+import Notification from "./Components/Notification/Notification";
 
 const App: FC = () => {
     const state = useCtxState();
     const users = state?.users?.users;
     const { loading } = state?.site ?? {};
+    const { visible: notificationVisible } = state?.site?.notification ?? {};
 
     return (
         <Wrapper>
@@ -16,7 +21,7 @@ const App: FC = () => {
 
             <Main>
                 {loading ? (
-                    <Info>Loading...</Info>
+                    <LoadingSpinner />
                 ) : (
                     <>
                         {!!users && users.length !== 0 ? (
@@ -30,6 +35,8 @@ const App: FC = () => {
                     </>
                 )}
             </Main>
+
+            {notificationVisible && <Notification />}
         </Wrapper>
     );
 };

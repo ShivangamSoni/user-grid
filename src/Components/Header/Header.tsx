@@ -1,10 +1,15 @@
 import type { FC } from "react";
-import { setError, setLoading } from "../../Context/SiteState/actions";
+import {
+    setError,
+    setLoading,
+    showNotification,
+} from "../../Context/SiteState/actions";
 
 import { useDispatch } from "../../Context/StateContext";
 import { storeUsers } from "../../Context/UserState/actions";
 
 import {
+    Container,
     Link,
     LinksList,
     ListItem,
@@ -26,6 +31,15 @@ const Header: FC = () => {
                 // @ts-expect-error
                 dispatch(setError(false));
             }, 3000);
+
+            // @ts-expect-error
+            dispatch(
+                showNotification(
+                    "Error",
+                    "Error Loading Data Try Again!",
+                    "error",
+                ),
+            );
         };
 
         // @ts-expect-error
@@ -33,15 +47,24 @@ const Header: FC = () => {
 
         const response = await fetch("https://reqres.in/api/users?page=qw");
 
-        // @ts-expect-error
-        dispatch(setLoading(false));
-
         if (response.ok) {
             const data = await response.json();
 
             if (!!data) {
                 // @ts-expect-error
                 dispatch(storeUsers(data.data));
+
+                // @ts-expect-error
+                dispatch(setLoading(false));
+
+                // @ts-expect-error
+                dispatch(
+                    showNotification(
+                        "Success",
+                        "Users Data Loaded Successfully!",
+                        "success",
+                    ),
+                );
             } else {
                 showError();
             }
@@ -52,15 +75,17 @@ const Header: FC = () => {
 
     return (
         <Wrapper>
-            <Title>User Management</Title>
+            <Container>
+                <Title>User Management</Title>
 
-            <Nav>
-                <LinksList>
-                    <ListItem>
-                        <Link onClick={getUsers}>Get Users</Link>
-                    </ListItem>
-                </LinksList>
-            </Nav>
+                <Nav>
+                    <LinksList>
+                        <ListItem>
+                            <Link onClick={getUsers}>Get Users</Link>
+                        </ListItem>
+                    </LinksList>
+                </Nav>
+            </Container>
         </Wrapper>
     );
 };

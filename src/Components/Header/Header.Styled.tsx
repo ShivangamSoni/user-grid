@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { SetWidth } from "../../CommonStyled";
 
 export const Wrapper = styled.header`
+    background-color: #0d0d0d;
+`;
+
+export const Container = styled.div`
     ${SetWidth}
 
     display: flex;
